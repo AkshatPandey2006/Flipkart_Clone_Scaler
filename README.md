@@ -1,6 +1,6 @@
 # Flipkart Clone - Full Stack E-Commerce Web App
 
-A high-performance e-commerce platform inspired by Flipkart, built using the **MERN (MongoDB, Express, React, Node.js)** stack with **MySQL** as the relational database. This project features a robust product search system, category filtering, user authentication, and a complete checkout workflow.
+A high-performance e-commerce platform inspired by Flipkart, built using the Express, React, Node.js)** stack with **MySQL** as the relational database. This project features a robust product search system, category filtering, user authentication, and a complete checkout workflow.
 
 ## 🚀 Features
 
