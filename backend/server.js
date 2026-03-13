@@ -9,6 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+<<<<<<< HEAD
 // Database Connection Pool
 // Railway provides these MYSQL variables automatically when you link the DB
 const pool = mysql.createPool({
@@ -20,11 +21,24 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
+=======
+// LOCAL DATABASE CONFIGURATION
+// Ensure your local MySQL Workbench is running and password matches
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'Akshat@2006', // <--- Update this to your local MySQL password
+    database: 'flipkart_clone'
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
 });
 
 // --- API ROUTES ---
 
+<<<<<<< HEAD
 // 1. Get Products (with Search and Category filters)
+=======
+// 1. Get Products (Search & Category)
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
 app.get('/api/products', async (req, res) => {
     try {
         const { search, category } = req.query;
@@ -47,7 +61,11 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
 // 2. Signup
+=======
+// 2. User Signup
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
 app.post('/api/signup', async (req, res) => {
     const { name, email, password } = req.body;
     try {
@@ -58,11 +76,19 @@ app.post('/api/signup', async (req, res) => {
         );
         res.json({ success: true, user: { id: result.insertId, name, email } });
     } catch (err) {
+<<<<<<< HEAD
         res.status(500).json({ error: "User already exists or database error" });
     }
 });
 
 // 3. Login
+=======
+        res.status(500).json({ error: "User already exists" });
+    }
+});
+
+// 3. User Login
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -76,27 +102,41 @@ app.post('/api/login', async (req, res) => {
                 });
             }
         }
+<<<<<<< HEAD
         res.status(401).json({ error: "Invalid email or password" });
+=======
+        res.status(401).json({ error: "Invalid credentials" });
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
+<<<<<<< HEAD
 // 4. Place Order (Transaction based)
+=======
+// 4. Place Order
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
 app.post('/api/orders', async (req, res) => {
     const { total, name, address, userId, items } = req.body;
     const connection = await pool.getConnection();
     try {
         await connection.beginTransaction();
 
+<<<<<<< HEAD
         // Save main order
+=======
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
         const [orderResult] = await connection.query(
             'INSERT INTO orders (total, name, address, user_id) VALUES (?, ?, ?, ?)', 
             [total, name, address, userId || null]
         );
         const orderId = orderResult.insertId;
 
+<<<<<<< HEAD
         // Save order items
+=======
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
         for (const item of items) {
             await connection.query(
                 'INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES (?, ?, ?, ?)',
@@ -129,7 +169,10 @@ app.get('/api/orders/:userId', async (req, res) => {
         `;
         const [rows] = await pool.query(query, [req.params.userId]);
         
+<<<<<<< HEAD
         // Group results by Order ID
+=======
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
         const grouped = rows.reduce((acc, row) => {
             if (!acc[row.order_id]) {
                 acc[row.order_id] = { 
@@ -149,8 +192,15 @@ app.get('/api/orders/:userId', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
 // Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+=======
+// Local Port
+const PORT = 5001;
+app.listen(PORT, () => {
+    console.log(`Backend server running at http://localhost:${PORT}`);
+>>>>>>> 7a2aca8 (Initial local backup after reverting from cloud)
 });
